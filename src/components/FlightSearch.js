@@ -10,7 +10,8 @@ function FlightSearch() {
         destination: '',
         maxPrice: '',
         classType: '',
-        typeLuggage :''
+        typeLuggage :'',
+        numberPassengers :''
     });
     const [flights, setFlights] = useState([]);
     const [filters, setFilters] = useState({
@@ -18,7 +19,8 @@ function FlightSearch() {
         filterByDestination: false,
         filterByMaxPrice: false,
         filterByClassType: false,
-        filterByTypeLuggage: false
+        filterByTypeLuggage: false,
+        filterByNumberPassengers: false
     });
 
     const handleInputChange = (e) => {
@@ -43,7 +45,8 @@ function FlightSearch() {
                     destination: filters.filterByDestination ? formData.destination : '',
                     maxPrice: filters.filterByMaxPrice ? formData.maxPrice : '',
                     classType: filters.filterByClassType ? formData.classType : '',
-                    typeLuggage: filters.filterByTypeLuggage ? formData.typeLuggage : ''
+                    typeLuggage: filters.filterByTypeLuggage ? formData.typeLuggage : '',
+                    numberPassengers: filters.filterByNumberPassengers ? formData.numberPassengers : ''
                 }
             });
             setFlights(response.data);
@@ -114,6 +117,14 @@ function FlightSearch() {
                 <br />
 
                 
+                <label>
+                    <input type="checkbox" name="filterByNumberPassengers" checked={filters.filterByNumberPassengers} onChange={handleInputChange} />
+                    Filter by Number Passengers
+                </label>
+                {filters.filterByNumberPassengers && (
+                    <input type="text" name="numberPassengers" placeholder="Enter Number Passengers" value={formData.numberPassengers} onChange={handleInputChange} />
+                )}
+                <br />
 
                 <button type="submit">Search Flights</button>
             </form>
@@ -129,6 +140,7 @@ function FlightSearch() {
                             <th>Price</th>
                             <th>Class Type</th>
                             <th>Type Luggage</th>
+                            <th>Number Passengers</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,6 +152,7 @@ function FlightSearch() {
                                 <td>${flight.price}</td>
                                 <td>{flight.classType}</td>
                                 <td>{flight.typeLuggage}</td>
+                                <td>{flight.numberPassengers}</td>
                             </tr>
                         )) : (
                             <tr>
@@ -152,5 +165,7 @@ function FlightSearch() {
         </div>
     );
 }
+
+
 
 export default FlightSearch;
